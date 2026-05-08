@@ -40,7 +40,7 @@ export default function Home() {
       body: JSON.stringify({
         query: `
           mutation {
-            sayHello(name: "Munkhorgil")
+            sayHello(name: "dalai")
           }
         `,
       }),
