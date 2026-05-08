@@ -1,9 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-import { gql } from "graphql-tag";
-import { NextRequest } from "next/server";
 
-const typeDefs = gql`
+const typeDefs = `#graphql
   type Query {
     test: String!
   }
@@ -29,8 +27,12 @@ const server = new ApolloServer({
   resolvers,
 });
 
-const handler = startServerAndCreateNextHandler<NextRequest>(server, {
-  context: async (req) => ({ req }),
-});
+const apolloHandler = startServerAndCreateNextHandler(server);
 
-export { handler as GET, handler as POST };
+export async function GET(request: Request): Promise<Response> {
+  return apolloHandler(request) as Promise<Response>;
+}
+
+export async function POST(request: Request): Promise<Response> {
+  return apolloHandler(request) as Promise<Response>;
+}
